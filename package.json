@@ -1,0 +1,15 @@
+{
+  "name": "stringlist-regexp",
+  "version": "1.0.0",
+  "description": "creates a single regexp from a list of strings to search for",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "regexp",
+    "search"
+  ],
+  "author": "Ivo de Kler <ivo.de.kler@gmail.com> (http://github.com/w0ps)",
+  "license": "ISC"
+}
