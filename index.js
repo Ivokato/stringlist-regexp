@@ -5,7 +5,7 @@
  * @param  {Boolean} matchEnd   whether to make the resulting regex leafs end with $
  * @return {String regex}            optimized regex for the list of strings
  */
-module.exports = function convertStringListToRegExpString( list, matchStart, matchEnd ){
+module.exports = function convertStringListToRegExpString( list, matchStart, matchEnd ) {
   if( matchStart === undefined ) matchStart = true;
 
   if( matchEnd === undefined ) matchEnd = true;
@@ -148,7 +148,7 @@ function simplify( object ) {
  * @param  {Object} tree the tree as shown above
  * @return {String}      'regex' string
  */
-function makeRegexString( tree ){
+function makeRegexString( tree ) {
   var subRegexes = [];
 
   Object.keys( tree ).forEach( makeRegexPart );
@@ -159,10 +159,10 @@ function makeRegexString( tree ){
 
   return '';
 
-  function makeRegexPart( key ){
+  function makeRegexPart( key ) {
     subRegexes.push( key + makeRegexString( tree[key] ) );
   }
 }
 
 function prependCircumflex( string ) { return '^' + string; }
-function appendDollar( string ){ return string + '$'; }
+function appendDollar( string ) { return string + '$'; }
