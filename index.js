@@ -66,6 +66,8 @@ function createTree(list) {
     item = item.replace( ')', '\\)' );
 
     item.split('').forEach( addCharacterToTree );
+
+    Object.defineProperty( objectToStoreIn, 'isLast', { value: true } );
   }
 
   function addCharacterToTree( character ) {
@@ -118,7 +120,7 @@ function simplify( object ) {
         subKeys = Object.keys(subObject),
         newKey;
 
-    while( subKeys.length === 1 ){
+    while( subKeys.length === 1 && !subObject.isLast ){
       newKey = key + subKeys[0];
       object[newKey] = subObject[subKeys[0]];
       delete object[key];
