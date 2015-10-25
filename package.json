@@ -1,6 +1,6 @@
 {
   "name": "stringlist-regexp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "creates a single regexp from a list of strings to search for",
   "main": "index.js",
   "scripts": {
