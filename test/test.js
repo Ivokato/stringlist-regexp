@@ -6,6 +6,7 @@ var assert = require('assert'),
       'bar',
       'baz',
       'testing',
+      'testing to the end of the universe',
       'foo bar'
     ];
 
