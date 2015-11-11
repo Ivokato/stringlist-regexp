@@ -1,6 +1,6 @@
 {
   "name": "stringlist-regexp",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "creates a single regexp from a list of strings to search for",
   "main": "index.js",
   "scripts": {
@@ -11,5 +11,12 @@
     "search"
   ],
   "author": "Ivo de Kler <ivo.de.kler@gmail.com> (http://github.com/w0ps)",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/w0ps/stringlist-regexp"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.3"
+  }
 }

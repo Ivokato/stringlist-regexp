@@ -14,7 +14,7 @@ module.exports = function convertStringListToRegExpString( list, matchStart, mat
 
   if( matchEnd ) list = list.map( appendDollar );
 
-  var regExpString = makeRegexString( simplify( createTree( list ) ) );
+  var regExpString = makeRegexString( simplify( createTree( list ) ), true );
 
   if( !regExpString ) {
     if( matchStart ) regExpString += '^';
@@ -112,7 +112,7 @@ function createTree(list) {
  */
 function simplify( object ) {
   Object.keys( object ).forEach( simplifyChildren );
-
+  
   return object;
 
   function simplifyChildren( key ) {
@@ -130,6 +130,9 @@ function simplify( object ) {
     }
 
     object[key] = simplify(subObject);
+    if(subObject.isLast){
+      Object.defineProperty(object, 'terminates', { value: true });
+    }
   }
 }
 
@@ -150,21 +153,28 @@ function simplify( object ) {
  * @param  {Object} tree the tree as shown above
  * @return {String}      'regex' string
  */
-function makeRegexString( tree ) {
-  var subRegexes = [];
+function makeRegexString( tree, isRoot ) {
+  var subRegexes = [],
+      foundTerminator;
 
   Object.keys( tree ).forEach( makeRegexPart );
 
   if(subRegexes.length){
-    return '(' + subRegexes.join('|') + ')';
+    subRegexes.forEach( findTerminator ); // if terminator found, don't append ? as it means this part is not optional
+    return '(' + subRegexes.join('|') + ')' + ( ( !foundTerminator && !isRoot && tree.terminates ) ? '?' : '' ); // if root don't consider this part optional
   }
 
   return '';
 
   function makeRegexPart( key ) {
-    subRegexes.push( key + makeRegexString( tree[key] ) );
+    subRegexes.push( key + makeRegexString( tree[key], isRoot && key === '^' ) );
+  }
+
+  function findTerminator( string ){
+    foundTerminator = foundTerminator || string.indexOf('$') > -1;
   }
 }
 
 function prependCircumflex( string ) { return '^' + string; }
 function appendDollar( string ) { return string + '$'; }
+
